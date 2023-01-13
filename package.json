@@ -1,0 +1,22 @@
+{
+  "name": "cit_270_system_security",
+  "version": "1.0.0",
+  "description": "Token API",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Samuel-Kleine/CIT_270_system_security.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Samuel-Kleine/CIT_270_system_security/issues"
+  },
+  "homepage": "https://github.com/Samuel-Kleine/CIT_270_system_security#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
