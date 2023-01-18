@@ -4,8 +4,18 @@ const app = express();
 
 const port = 3000;
 
-app.get("/", (reg, res) => {
-    res.send("hello sam");
+const bodyParser = require ('body-parser');
+
+app.use(bodyParser.json()); //This looks for oncoming data
+
+app.get("/", (req, res) => {
+    res.send("Hello Sam");
+});
+
+app.post('/login', (req, res) =>{
+    const loginUser = req.body.userName;
+    console.log('Login username: '+loginUser);
+    res.send('Hello '+loginUser);
 });
 
 app.listen(port, () => {
