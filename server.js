@@ -6,6 +6,8 @@ const port = 3000;
 
 const bodyParser = require ('body-parser');
 
+const {v4: uuidv4} = require('uuid');
+
 app.use(bodyParser.json()); //This looks for oncoming data
 
 app.get("/", (req, res) => {
@@ -14,8 +16,16 @@ app.get("/", (req, res) => {
 
 app.post('/login', (req, res) =>{
     const loginUser = req.body.userName;
+    const loginPassword = req.body.password;//Access the password data in the body
     console.log('Login username: '+loginUser);
-    res.send('Hello '+loginUser);
+    if (loginUser=="nomailhere@blank.com" && loginPassword=="P1s$w3rd"){
+        const loginToken = uuidv4();
+        res.send(loginToken);
+    } else {
+        res.status(401);//unauthorized
+        res.send('Inncorrect password for '+loginUser);
+    }
+    
 });
 
 app.listen(port, () => {
