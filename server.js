@@ -6,7 +6,7 @@ const port = 3000;
 
 const bodyParser = require ('body-parser');
 
-const {v4: uuidv4} = require('uuid');
+const {v4: uuidv4} = require('uuid');//universely unique identifier
 
 app.use(bodyParser.json()); //This looks for oncoming data
 
@@ -23,7 +23,7 @@ app.post('/login', (req, res) =>{
         res.send(loginToken);
     } else {
         res.status(401);//unauthorized
-        res.send('Inncorrect password for '+loginUser);
+        res.send('Incorrect password for '+loginUser);
     }
     
 });
