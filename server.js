@@ -14,15 +14,18 @@ const {v4: uuidv4} = require('uuid');//universely unique identifier
 
 app.use(bodyParser.json()); //This looks for oncoming data
 
+app.use(express.static('public'));
+
 app.get("/", (req, res) => {
     res.send("Hello Sam");
 });
 
-app.post('/login', (req, res) =>{
+app.post('/login', async(req, res) =>{
     const loginUser = req.body.userName;
     const loginPassword = req.body.password;//Access the password data in the body
     console.log('Login username: '+loginUser);
-    if (loginUser=="nomailhere@blank.com" && loginPassword=="P1s$w3rd"){
+    const correctPassword = await redisClient.hGet('UserMap', loginUser);
+    if (loginPassword==correctPassword){
         const loginToken = uuidv4();
         res.send(loginToken);
     } else {
