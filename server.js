@@ -12,18 +12,24 @@ const redisClient = Redis.createClient({url:"redis://127.0.0.1:6379"});
 
 const {v4: uuidv4} = require('uuid');//universely unique identifier
 
+const cookieParser = require("cookie-parser");
+
 app.use(bodyParser.json()); //This looks for oncoming data
 
 app.use(express.static('public'));
+
+app.use(cookieParser());
 
 app.get("/", (req, res) => {
     res.send("Hello Sam");
 });
 
-app.get("/validate/loginToken", async(req, res) =>{
-    const loginToken = req.params.loginToken;
+app.get("/validate", async(req, res) =>{
+    const loginToken = req.cookies.stedicookie;
+    console.log("loginToken", loginToken);
     const loginUser = await redisClient.hGet('TokenMap', loginToken);
     res.send(loginUser);
+
 });
 
 app.post('/login', async(req, res) =>{
