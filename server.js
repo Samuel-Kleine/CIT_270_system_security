@@ -20,6 +20,13 @@ app.use(express.static('public'));
 
 app.use(cookieParser());
 
+app.post('/rapidsteptest', async (req, res)=>{
+    const steps = req.body;
+    await redisClient.zAdd("Steps", steps, 0);
+    console.log('Steps', steps);
+    res.send('saved');
+});
+
 app.get("/", (req, res) => {
     res.send("Hello Sam");
 });
