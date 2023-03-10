@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cit270samuelservice
+spec:
+  replicas:
+  selector:
+    matchLabels:
+      app: cit270samuelservice
+  tempate:
+    metadata:
+      name: cit270samuelservice
+      labels:
+        app:
+    spec:
+      containers:
+        - name: cit270samuelservice
+        image: united-aviary-379820/samuel-api
+        volumeMounts:
+          - name: ssl
+            mountPath: "/etc/letsencrypt/live/SSL"
+        command: ["npm"]
+        args: ["run", "start"]
+        resources:
+          requests:
+            cpu: 0.125
+            memory: 500Mi
+          limits:
+            cpu: 0.125
+            memory: 600Mi
+        imagePullPolicy: Always
+      volumes: 
+        names: ssl
+        secret:
+          secretName: samuelcerts
