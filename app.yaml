@@ -7,18 +7,18 @@ spec:
   selector:
     matchLabels:
       app: cit270samuelservice
-  tempate:
+  template:
     metadata:
       name: cit270samuelservice
       labels:
-        app:
+        app: cit270samuelservice
     spec:
       containers:
-        - name: cit270samuelservice
-        image: united-aviary-379820/samuel-api
+      - name: cit270samuelservice
+        image: gcr.io/united-aviary-379820/samuel-api
         volumeMounts:
-          - name: ssl
-            mountPath: "/etc/letsencrypt/live/SSL"
+        - name: ssl
+          mountPath: "/etc/letsencrypt/live/samuelkleine.cit270.com/"
         command: ["npm"]
         args: ["run", "start"]
         resources:
@@ -30,6 +30,6 @@ spec:
             memory: 600Mi
         imagePullPolicy: Always
       volumes: 
-        names: ssl
+      - name: ssl
         secret:
           secretName: samuelcerts
