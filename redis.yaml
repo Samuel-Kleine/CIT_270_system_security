@@ -28,7 +28,7 @@ spec:
                 name: redis-secrets-samuel
                 key: REDIS_PASS
           volumeMounts:
-            - name: redis-stedi-samuel
+            - name: redis-samuel-volume
               mountPath: /data
   volumeClaimTemplates:
   - metadata:
