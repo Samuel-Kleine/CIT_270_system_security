@@ -33,15 +33,45 @@ spec:
       - name: ssl
         secret:
           secretName: samuelcerts
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: cit270samuelservice-loadbalancer
-# spec:
-#   selector:
-#     app: cit270samuelservice
-#   type: LoadBalancer
-#   ports:
-#   - port: 443
-#     targetPort: 443
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: stedi-samuel-nodeport
+spec:
+ selector:
+   app: cit270samuelservice
+ type: NodePort
+ ports:
+   - port: 80
+     targetPort: 3000
+---
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: stedi-samuel-certificate
+spec:
+  domains:
+    - samuelkleine.cit270.com # domain name from DNS
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: stedi-samuel-ingress
+  annotations:
+  # Use this command to find the address name: gcloud compute addresses list
+    kubernetes.io/ingress.global-static-ip-name: cit270sam
+  # needs to match the name of the ManagedCertificate (line 52)
+    networking.gke.io/managed-certificates: stedi-samuel-certificate
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+          # needs to match the name of the NodePort Service (Line 40)
+            name: stedi-samuel-nodeport
+            port:
+              number: 80

@@ -9,7 +9,7 @@ const bodyParser = require ('body-parser');
 const Redis = require ('redis');
 
 const redisClient = Redis.createClient({url:"redis://default:nvnCxK1Zd9Yt5suuvCJ2@redis-stedi-samuel:6379"});
-
+    //redis kubernetes pass: nvnCxK1Zd9Yt5suuvCJ2
 const {v4: uuidv4} = require('uuid');//universely unique identifier
 
 const cookieParser = require("cookie-parser");
